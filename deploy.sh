@@ -5,6 +5,7 @@ set -e
 
 # Step 1: Build the project
 echo "Building the project..."
+npm install
 npm run build
 
 # Step 2: Switch to gh-pages branch (create it if it doesn't exist locally)
