@@ -16,7 +16,7 @@ git checkout gh-pages
 
 # Step 3: Remove old files in gh-pages (only the ones tracked in the branch)
 echo "Cleaning old files in gh-pages..."
-git rm -rf .
+# git rm -rf .
 
 # Step 4: Copy new dist content to the root of gh-pages
 echo "Copying new build to gh-pages..."
