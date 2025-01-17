@@ -35,5 +35,6 @@ git push -u origin gh-pages
 # Step 7: Switch back to main branch
 echo "Switching back to main branch..."
 git checkout master
+npm install
 
 echo "Deployment complete!"
