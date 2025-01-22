@@ -38,4 +38,7 @@ echo "Switching back to main branch..."
 git checkout master
 npm install
 
+echo "Deleting dist folder"
+rm -rf dist
+
 echo "Deployment complete!"
