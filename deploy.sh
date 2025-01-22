@@ -49,4 +49,10 @@ npm install
 echo "Deleting dist folder"
 rm -rf dist
 
+echo "Git in progress"
+git add .
+git commit -m "New Build"
+git push origin master
+echo "Git work done"
+
 echo "Deployment complete!"
