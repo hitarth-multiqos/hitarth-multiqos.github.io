@@ -9,11 +9,19 @@ npm install
 echo "Building the project..."
 npm run build
 
+echo "Git in progress"
+git add .
+git commit -m "New Build"
+git push origin master
+echo "Git work done"
+
 # Step 2: Switch to gh-pages branch (create it if it doesn't exist locally)
 echo "Switching to gh-pages branch..."
 git fetch origin gh-pages:gh-pages
 git checkout gh-pages 
 
+echo "Pulling changes from master"
+git pull origin master
 # Step 3: Remove old files in gh-pages (only the ones tracked in the branch)
 echo "Cleaning old files in gh-pages..."
 # git rm -rf .
