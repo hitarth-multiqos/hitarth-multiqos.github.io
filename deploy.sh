@@ -38,7 +38,7 @@ git pull origin $DEPLOY_BRANCH --rebase || echo "No changes to pull."
 echo "Temporarily moving build directory..."
 mv $BUILD_DIR /tmp/dist_backup
 
-# Step 6: Clean old deployment files
+# Step 6: Clean old deployment files (exclude important files)
 echo "Cleaning up old deployment files..."
 git rm -rf . || echo "No old files to remove."
 
