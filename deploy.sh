@@ -21,7 +21,7 @@ git fetch origin gh-pages:gh-pages
 git checkout gh-pages 
 
 echo "Pulling changes from master"
-git pull origin master
+git pull origin master --no-ff
 # Step 3: Remove old files in gh-pages (only the ones tracked in the branch)
 echo "Cleaning old files in gh-pages..."
 # git rm -rf .
