@@ -34,15 +34,20 @@ fi
 echo "Pulling latest changes from $DEPLOY_BRANCH..."
 git pull origin $DEPLOY_BRANCH --rebase || echo "No changes to pull."
 
-# Step 5: Clean old build files
+# Step 5: Move the build directory temporarily
+echo "Temporarily moving build directory..."
+mv $BUILD_DIR /tmp/dist_backup
+
+# Step 6: Clean old deployment files
 echo "Cleaning up old deployment files..."
 git rm -rf . || echo "No old files to remove."
 
-# Step 6: Copy the new build files
-echo "Copying new build files to $DEPLOY_BRANCH..."
+# Step 7: Restore the build directory and copy contents
+echo "Restoring build directory..."
+mv /tmp/dist_backup $BUILD_DIR
 cp -r $BUILD_DIR/* .
 
-# Step 7: Commit and push the new build
+# Step 8: Commit and push the new build
 echo "Committing the new build to $DEPLOY_BRANCH..."
 git add .
 git commit -m "Deploy new build: $(date)" || echo "No changes to commit in $DEPLOY_BRANCH."
@@ -50,7 +55,7 @@ git commit -m "Deploy new build: $(date)" || echo "No changes to commit in $DEPL
 echo "Pushing to $DEPLOY_BRANCH branch..."
 git push origin $DEPLOY_BRANCH
 
-# Step 8: Switch back to master branch
+# Step 9: Switch back to master branch
 echo "Switching back to $MASTER_BRANCH branch..."
 git checkout $MASTER_BRANCH
 
