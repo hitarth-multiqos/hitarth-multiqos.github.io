@@ -3,7 +3,7 @@ import "./App.css";
 
 // Read the base URL from environment variables
 const BASE_URL = process.env.BASEURL;
-
+console.log("BASE_URL", BASE_URL);
 function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -11,7 +11,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [serverStatus, setServerStatus] = useState(false);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = e => {
     setSelectedFiles(e.target.files);
   };
 
@@ -32,7 +32,7 @@ function App() {
     try {
       const response = await fetch(`${BASE_URL}/convert`, {
         method: "POST",
-        body: formData,
+        body: formData
       });
 
       const data = await response.json();
@@ -40,7 +40,9 @@ function App() {
       if (response.ok) {
         setZipUrl(data.downloadUrl);
       } else {
-        setErrorMessage(data.error || "An error occurred during the conversion.");
+        setErrorMessage(
+          data.error || "An error occurred during the conversion."
+        );
       }
     } catch (err) {
       setErrorMessage("Error connecting to the API.");
@@ -82,22 +84,24 @@ function App() {
           backgroundColor: serverStatus ? "green" : "red",
           marginBottom: "-2px",
           marginRight: "10px",
-          display: "inline-block",
+          display: "inline-block"
         }}
         title={serverStatus ? "Server is ready" : "Server is down"}
-      ></div>
+      />
       <input type="file" multiple onChange={handleFileChange} />
       <button onClick={handleUpload} disabled={isProcessing || !serverStatus}>
         {isProcessing ? "Processing..." : "Upload & Convert"}
       </button>
 
-      {zipUrl && (
+      {zipUrl &&
         <div>
           <button onClick={handleDownload}>Download Zip</button>
-        </div>
-      )}
+        </div>}
 
-      {errorMessage && <p className="error">{errorMessage}</p>}
+      {errorMessage &&
+        <p className="error">
+          {errorMessage}
+        </p>}
     </div>
   );
 }
