@@ -8,7 +8,7 @@ MASTER_BRANCH="master"
 DEPLOY_BRANCH="gh-pages"
 BUILD_DIR="./dist"
 ENV_FILE=".env"
-BASEURL_KEY="BASEURL"
+BASEURL_KEY="VITE_PUBLIC_BASEURL"
 
 # Step 1: Prompt for the new BASEURL
 echo "🌐 Enter the new BASEURL (e.g., https://example.ngrok-free.app):"
