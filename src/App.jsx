@@ -54,7 +54,17 @@ function App() {
 
   const handleDownload = () => {
     if (zipUrl) {
+        const link = document.createElement("a");
+        link.href = zipUrl;
+        link.setAttribute("download", "filename.ext");
+        document.body.appendChild(link)
+
+        link.click();
+
+        document.body.removeChild(link)
       window.location.href = zipUrl;
+    } else {
+      console.log("no data available");
     }
   };
 
