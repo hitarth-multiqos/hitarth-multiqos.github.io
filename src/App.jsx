@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+// Read the base URL from environment variables
+const BASE_URL = process.env.BASEURL;
+
 function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -27,7 +30,7 @@ function App() {
     }
 
     try {
-      const response = await fetch("https://fefd-2401-4900-8898-4912-395b-13dc-a7f8-caa1.ngrok-free.app/convert", {
+      const response = await fetch(`${BASE_URL}/convert`, {
         method: "POST",
         body: formData,
       });
@@ -55,7 +58,7 @@ function App() {
 
   const checkServerStatus = async () => {
     try {
-      const response = await fetch("https://fefd-2401-4900-8898-4912-395b-13dc-a7f8-caa1.ngrok-free.app/");
+      const response = await fetch(`${BASE_URL}/`);
       setServerStatus(response.ok);
     } catch (err) {
       setServerStatus(false);
