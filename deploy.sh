@@ -71,8 +71,14 @@ git push origin $DEPLOY_BRANCH
 echo "Switching back to $MASTER_BRANCH branch..."
 git checkout $MASTER_BRANCH
 
-# Optional: Cleanup the dist folder in master
+# Step 11 (Optional): Cleanup the dist folder in master
 echo "Cleaning up local dist folder..."
 rm -rf $BUILD_DIR
+
+# Step 12: Commit and push the build to the master branch
+echo "Adding and committing build in $MASTER_BRANCH..."
+git add .
+git commit -m "Removing dist folder $(date)" || echo "No changes to commit in $MASTER_BRANCH."
+git push origin $MASTER_BRANCH
 
 echo "Deployment completed successfully!"
