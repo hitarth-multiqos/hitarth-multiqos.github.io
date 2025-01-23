@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 // Read the base URL from environment variables
-const BASE_URL = import.meta.env.BASEURL;
+const BASE_URL = import.meta.env.VITE_PUBLIC_BASEURL;
 console.log("BASE_URL", BASE_URL);
 function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
