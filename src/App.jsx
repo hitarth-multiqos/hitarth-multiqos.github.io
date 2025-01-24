@@ -4,14 +4,16 @@ import "./App.css";
 // Read the base URL from environment variables
 const BASE_URL = import.meta.env.VITE_PUBLIC_BASEURL;
 console.log("BASE_URL", BASE_URL);
+
 function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [zipUrl, setZipUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [serverStatus, setServerStatus] = useState(false);
+  const [previewImages, setPreviewImages] = useState([]);
 
-  const handleFileChange = e => {
+  const handleFileChange = (e) => {
     setSelectedFiles(e.target.files);
   };
 
@@ -32,17 +34,19 @@ function App() {
     try {
       const response = await fetch(`${BASE_URL}/convert`, {
         method: "POST",
-        body: formData
+        body: formData,
+        headers: {
+          'ngrok-skip-browser-warning': 'true',  // Skip the warning page
+        }
       });
 
       const data = await response.json();
 
       if (response.ok) {
         setZipUrl(data.downloadUrl);
+        setPreviewImages(data.previewImages || []); // Assuming backend sends preview URLs
       } else {
-        setErrorMessage(
-          data.error || "An error occurred during the conversion."
-        );
+        setErrorMessage(data.error || "An error occurred during the conversion.");
       }
     } catch (err) {
       setErrorMessage("Error connecting to the API.");
@@ -54,17 +58,16 @@ function App() {
 
   const handleDownload = () => {
     if (zipUrl) {
-        const link = document.createElement("a");
-        link.href = zipUrl;
-        link.setAttribute("download", "filename.ext");
-        document.body.appendChild(link)
+      const link = document.createElement("a");
+      link.href = zipUrl;
+      link.setAttribute("download", "converted-images.zip");
+      document.body.appendChild(link);
 
-        link.click();
+      link.click();
 
-        document.body.removeChild(link)
-      window.location.href = zipUrl;
+      document.body.removeChild(link);
     } else {
-      console.log("no data available");
+      console.log("No data available");
     }
   };
 
@@ -85,33 +88,39 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Upload HEIF images & convert to JPG</h1>
-      <div
-        style={{
-          width: "15px",
-          height: "15px",
-          borderRadius: "50%",
-          backgroundColor: serverStatus ? "green" : "red",
-          marginBottom: "-2px",
-          marginRight: "10px",
-          display: "inline-block"
-        }}
-        title={serverStatus ? "Server is ready" : "Server is down"}
-      />
+      {/* Centered heading */}
+      <h1 className="app-heading">Upload HEIF Images & Convert to JPG</h1>
+
+      {/* Upload files */}
       <input type="file" multiple onChange={handleFileChange} />
       <button onClick={handleUpload} disabled={isProcessing || !serverStatus}>
         {isProcessing ? "Processing..." : "Upload & Convert"}
       </button>
 
-      {zipUrl &&
+      {/* Download link */}
+      {zipUrl && (
         <div>
           <button onClick={handleDownload}>Download Zip</button>
-        </div>}
+        </div>
+      )}
 
-      {errorMessage &&
-        <p className="error">
-          {errorMessage}
-        </p>}
+      {/* Error message */}
+      {errorMessage && <p className="error">{errorMessage}</p>}
+
+      {/* Preview images */}
+      {previewImages.length > 0 && (
+        <div className="image-grid">
+          {previewImages.map((image, index) => (
+            <div key={index} className="image-container">
+              <img
+                src={image}
+                alt={`Converted ${index + 1}`}
+                className="preview-image"
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

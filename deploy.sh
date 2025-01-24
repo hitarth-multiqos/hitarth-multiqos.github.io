@@ -9,12 +9,18 @@ DEPLOY_BRANCH="gh-pages"
 BUILD_DIR="./dist"
 ENV_FILE=".env"
 BASEURL_KEY="VITE_PUBLIC_BASEURL"
+NGROK_FILE="/var/www/node-js/heif-to-jpeg-pwa/ngrokdata.txt"
 
-# Step 1: Prompt for the new BASEURL
-echo "🌐 Enter the new BASEURL (e.g., https://example.ngrok-free.app):"
-read -r NEW_BASEURL
+# Step 1: Read the ngrok URL from the file
+if [[ -f $NGROK_FILE ]]; then
+  NEW_BASEURL=$(cat $NGROK_FILE | tr -d '[:space:]') # Remove any whitespace
+  echo "🌐 Found BASEURL in $NGROK_FILE: $NEW_BASEURL"
+else
+  echo "❌ Error: ngrok file not found at $NGROK_FILE."
+  exit 1
+fi
 
-# Validate input
+# Validate the URL
 if [[ -z "$NEW_BASEURL" ]]; then
   echo "❌ Error: BASEURL cannot be empty."
   exit 1
