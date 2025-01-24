@@ -1,6 +1,4 @@
-/* App.css */
-
-/* Apply the animated gradient as a background for the whole page */
+/* Apply the animated bluish-black gradient as a background for the whole page */
 #root {
   margin: 0;
   padding: 0;
@@ -10,10 +8,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(45deg, #ff6b6b, #f7b7a3, #6b87ff, #56b4c7); */
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  /* Bluish-black gradient with animation */
+  background: linear-gradient(-45deg, #0a1a2f, #16263a, #1f3549, #0a1a2f);
   background-size: 400% 400%;
-  animation: gradient-animation 15s ease infinite; /* Animated gradient background */
+  animation: bluish-black-gradient-animation 10s ease infinite;
 }
 
 /* Ensure that the body takes up full height and width */
@@ -23,8 +21,8 @@ body, html {
   margin: 0;
 }
 
-/* Define the gradient animation */
-@keyframes gradient-animation {
+/* Define the bluish-black gradient animation */
+@keyframes bluish-black-gradient-animation {
   0% {
     background-position: 0% 50%;
   }
@@ -52,46 +50,21 @@ body, html {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Animation for logo spin (only if no reduced motion preference) */
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-/* Card styling */
-.card {
-  padding: 2em;
-}
-
-/* Styling for "Read the Docs" text */
-.read-the-docs {
-  color: #888;
-}
-
 /* Button styling */
 button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #1a73e8; /* Bright bluish button */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 button:hover {
   transform: scale(1.1);
-  background-color: #45a049;
+  background-color: #125bb5; /* Darker hover effect */
 }
 
 button:disabled {
@@ -101,7 +74,7 @@ button:disabled {
 
 /* Error message style */
 .error {
-  color: red;
+  color: #ff6b6b; /* Soft reddish error text */
   font-weight: bold;
   animation: fadeIn 1s ease-out;
 }
@@ -113,35 +86,4 @@ button:disabled {
   to {
     opacity: 1;
   }
-}
-
-/* Loading spinner animation */
-.spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Server status indicator styles */
-.status-indicator {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.status-indicator.green {
-  background-color: green;
-}
-
-.status-indicator.red {
-  background-color: red;
 }
